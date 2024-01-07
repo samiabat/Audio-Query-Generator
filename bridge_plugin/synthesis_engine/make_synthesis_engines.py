@@ -13,20 +13,6 @@ def make_synthesis_engines(
     enable_mock: bool = True,
     load_all_models: bool = False,
 ) -> Dict[str, SynthesisEngineBase]:
-    """
-    音声ライブラリをロードして、音声合成エンジンを生成
-
-    Parameters
-    ----------
-    use_gpu: bool
-        音声ライブラリに GPU を使わせるか否か
-    bridge_config_loader: BridgeConfigLoader
-        BridgeConfigLoader
-    enable_mock: bool, optional, default=True
-        コア読み込みに失敗したとき、代わりにmockを使用するかどうか
-    load_all_models: bool, optional, default=False
-        起動時に全てのモデルを読み込むかどうか
-    """
     synthesis_engines = {}
     try:
         _synthesis_engine = SynthesisEngineESPNet(
@@ -44,13 +30,13 @@ def make_synthesis_engines(
             file=sys.stderr,
         )
 
-        from ..dev.core import metas as mock_metas
-        from ..dev.core import supported_devices as mock_supported_devices
-        from ..dev.synthesis_engine import MockSynthesisEngine
+        # from ..dev.core import metas as mock_metas
+        # from ..dev.core import supported_devices as mock_supported_devices
+        # from ..dev.synthesis_engine import MockSynthesisEngine
 
-        if "0.0.0" not in synthesis_engines:
-            synthesis_engines["0.0.0"] = MockSynthesisEngine(
-                speakers=mock_metas(), supported_devices=mock_supported_devices()
-            )
+        # if "0.0.0" not in synthesis_engines:
+        #     synthesis_engines["0.0.0"] = MockSynthesisEngine(
+        #         speakers=mock_metas(), supported_devices=mock_supported_devices()
+        #     )
 
     return synthesis_engines
