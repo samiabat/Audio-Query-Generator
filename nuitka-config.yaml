@@ -1,0 +1,127 @@
+- module-name: 'librosa.decompose'
+  anti-bloat:
+    - description: 'remove sklearn dependency'
+      replacements_plain:
+        'import sklearn.decomposition': ''
+
+- module-name: 'librosa.segment'
+  anti-bloat:
+    - description: 'remove sklearn dependency'
+      replacements_plain:
+        'import sklearn.cluster': ''
+        'import sklearn.feature_extraction': ''
+        'import sklearn.neighbors': ''
+        'import sklearn': ''
+
+- module-name: 'librosa.util.utils'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'import numba': ''
+        '@numba.jit': '#'
+
+- module-name: 'librosa.util.matching'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'import numba': ''
+        '@numba.jit': '#'
+        'numba.uint32': 'np.uint'
+
+- module-name: 'librosa.filters'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import jit': ''
+        '@jit': '#'
+
+- module-name: 'librosa.core.audio'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        '@jit': '#'
+        'from numba import jit': ''
+
+- module-name: 'librosa.core.spectrum'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import jit': ''
+        '@jit': '#'
+
+- module-name: 'librosa.core.constantq'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import jit': ''
+        '@jit': '#'
+
+- module-name: 'librosa.sequence'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import jit': ''
+        '@jit': '#'
+
+- module-name: 'librosa.feature.utils'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import jit': ''
+        '@jit': '#'
+
+- module-name: 'resampy.interpn'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import guvectorize, jit, prange': |
+          def guvectorize(*args, **kwargs):
+              return lambda f: f
+
+          def jit(*args, **kwargs):
+              return lambda f: f
+        'prange(': 'range('
+
+- module-name: 'resampy.core'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'import numba': ''
+        'numba.TypingError': 'Exception'
+
+- module-name: 'tacotron_cleaner.cleaners'
+  anti-bloat:
+    - description: 'remove unidecode dependency'
+      replacements_plain:
+        'from unidecode import unidecode': ''
+        'def convert_to_ascii(text):': ''
+        'return unidecode(text)': ''
+
+- module-name: 'espnet2.gan_tts.vits.monotonic_align'
+  anti-bloat:
+    - description: 'remove numba dependency'
+      replacements_plain:
+        'from numba import njit': ''
+        'from numba import prange': ''
+        '@njit': '#'
+        'prange(': 'range('
+
+- module-name: 'espnet'
+  data-files:
+    patterns:
+      - 'version.txt'
+
+- module-name: 'librosa'
+  data-files:
+    dirs:
+      - 'util/example_data'
+
+- module-name: 'resampy'
+  data-files:
+    dirs:
+      - 'data'
+
+- module-name: 'jamo'
+  data-files:
+    dirs:
+      - 'data'

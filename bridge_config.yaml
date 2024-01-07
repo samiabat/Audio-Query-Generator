@@ -1,0 +1,113 @@
+gloal_style_setting: &gloal_style_setting
+  sampling_rate: 44100
+  g2p: pyopenjtalk_accent_with_pause
+
+global_tts_inference_init_args: &global_tts_inference_init_args
+  speed_control_alpha: 1.0
+  noise_scale: 0.333
+  noise_scale_dur: 0.333
+
+global_token_id_converter_init_args: &global_token_id_converter_init_args
+  token_list:
+    - <blank>
+    - <unk>
+    - '1'
+    - '2'
+    - '0'
+    - '3'
+    - '4'
+    - '-1'
+    - '5'
+    - a
+    - o
+    - '-2'
+    - i
+    - '-3'
+    - u
+    - e
+    - k
+    - n
+    - t
+    - '6'
+    - r
+    - '-4'
+    - s
+    - N
+    - m
+    - pau
+    - '7'
+    - sh
+    - d
+    - g
+    - w
+    - '8'
+    - U
+    - '-5'
+    - I
+    - cl
+    - h
+    - y
+    - b
+    - '9'
+    - j
+    - ts
+    - ch
+    - '-6'
+    - z
+    - p
+    - '-7'
+    - f
+    - ky
+    - ry
+    - '-8'
+    - gy
+    - '-9'
+    - hy
+    - ny
+    - '-10'
+    - by
+    - my
+    - '-11'
+    - '-12'
+    - '-13'
+    - py
+    - '-14'
+    - '-15'
+    - v
+    - '10'
+    - '-16'
+    - '-17'
+    - '11'
+    - '-21'
+    - '-20'
+    - '12'
+    - '-19'
+    - '13'
+    - '-18'
+    - '14'
+    - dy
+    - '15'
+    - ty
+    - '-22'
+    - '16'
+    - '18'
+    - '19'
+    - '17'
+    - <sos/eos>
+
+
+host: '127.0.0.1'
+speakers:
+  - name: DUMMY
+    speaker_uuid: aa33c99b-a43b-49b0-a2c8-6a81922f8213
+    version: 0.0.1
+    styles:
+      - name: ノーマル
+        id: 0
+        <<: *gloal_style_setting
+        tts_inference_init_args:
+          train_config: model/config.yaml
+          model_file: model/train.total_count.ave_10best.pth
+          <<: *global_tts_inference_init_args
+        token_id_converter_init_args:
+          <<: *global_token_id_converter_init_args
